@@ -1,0 +1,53 @@
+{% extends "base.html" %} {% block title %}Profile{% endblock %} {% block content
+%}
+
+<div class="page-content page-container" id="profile_content">
+    <div class="card">
+        <div class="row ml-0 mr-0">
+            <div class="col-sm-4 bg-c-lite-green left-sidebox-radius pt-4 pb-4">
+                <div class="card-block p-4 text-center text-white">
+                    <div class="mb-4 position-relative">
+                        {% if current_user.profile_image_url: %}
+                        <img src="{{current_user.profile_image_url}}" id="display_profile_image" class="profile-img-radius"
+                            alt="User-Profile-Image">
+                        {% else %}
+                        <img src="static/user.png" id="display_profile_image" class="profile-img-radius" alt="User-Profile-Image">
+                        {% endif %}
+                        <input type="file" class="form-control d-none" id="profile_image" name="profile_image" />
+                        <a class="edit-icon-background" onclick="selectProfileImage()" href="javascript:">
+                            <i class="fa fa-camera edit-icon"></i>
+                        </a>
+                    </div>
+                    <h5 class="fw-600">{{user.name}}</h5>
+                    <h6>{{user.email}}</h6>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="card-block p-4">
+                    <h6 class="fw-600">Profile</h6>
+                    <hr class="mt-1 mb-4">
+                    <form method="POST" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" class="form-control" value="{{user.email}}" id="email" name="email"
+                                placeholder="Enter email" readonly disabled />
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" class="form-control" id="name" value="{{user.name}}" name="name"
+                                placeholder="Enter name" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="default_currency">Default Currency</label>
+                            <input type="text" class="form-control" id="default_currency" name="default_currency" />
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

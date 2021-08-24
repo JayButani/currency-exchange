@@ -1,0 +1,88 @@
+body {
+    background-color: #f9f9fa
+}
+
+.fw-600 {
+    font-weight: 600
+}
+
+.alert {
+    width: 90%;
+    margin: auto;
+    margin-top: 0.5em;
+}
+
+.card {
+    border-radius: 5px;
+    -webkit-box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.08);
+    box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.08);
+    border: none;
+    margin-bottom: 30px
+}
+
+#login_card,
+#signup_card {
+    width: 40%;
+    margin: auto;
+}
+
+#profile_content .left-sidebox-radius {
+    border-radius: 5px 0 0 5px;
+}
+
+#profile_content .bg-c-lite-green {
+    background: -webkit-gradient(linear, left top, right top, from(#f29263), to(#ee5a6f));
+    background: linear-gradient(to right, #ee5a6f, #f29263)
+}
+
+#profile_content .profile-img-radius {
+    object-fit: cover;
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+}
+
+#profile_content .edit-icon-background {
+    background-color: #e4e6eb;
+    position: absolute;
+    bottom: 0;
+    right: 70px;
+    padding: 7px 5px 5px 5px;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+}
+
+#profile_content .edit-icon {
+    font-size: 22px;
+    color: #1c1d21;
+}
+
+@media (max-width: 450px) {
+
+    #login_card,
+    #signup_card {
+        width: initial;
+    }
+
+    #profile_content .left-sidebox-radius {
+        border-radius: 5px 5px 0 0;
+    }
+}
+
+@media (min-width: 451px) and (max-width: 769px) {
+
+    #login_card,
+    #signup_card {
+        width: 50%;
+    }
+
+    #profile_content .profile-img-radius {
+        width: 150px;
+        height: 150px;
+    }
+
+    #profile_content .edit-icon-background {
+        right: 0;
+    }
+}
