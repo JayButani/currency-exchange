@@ -58,6 +58,31 @@ body {
     color: #1c1d21;
 }
 
+.width-100 {
+    width: 100px;
+}
+
+.transaction {
+    border: 2px solid #CCC;
+    padding: 7px;
+    margin: 0.7em 0;
+    -webkit-box-shadow: 0px 0px 2px 0px rgb(69 90 100 / 45%);
+    box-shadow: 0px 0px 2px 0px rgb(69 90 100 / 45%);
+    border-radius: 5px;
+}
+.transaction.ADD, .transaction.RECEIVED_FROM {
+    background-color: #90ee9099;
+}
+.transaction.WITHDRAW, .transaction.PAID_TO {
+    background-color: #f1987699;
+}
+.txn-id {
+    font-size: 15px;
+}
+.txn-time {
+    font-size: 12px;
+    opacity: 0.7;
+}
 @media (max-width: 450px) {
 
     #login_card,

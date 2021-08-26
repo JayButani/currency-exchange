@@ -6,7 +6,7 @@ def test_signup_page(test_client):
     """
     response = test_client.get('/sign-up')
     assert response.status_code == 200
-    assert b"KOKO Networks" in response.data
+    assert b"Currency Exchange" in response.data
     assert b"Sign Up" in response.data
     assert b"Email Address" in response.data
     assert b"Name" in response.data

@@ -8,7 +8,7 @@ def test_login_page_with_fixture(test_client):
     """
     response = test_client.get('/login')
     assert response.status_code == 200
-    assert b"KOKO Networks" in response.data
+    assert b"Currency Exchange" in response.data
     assert b"Login" in response.data
     assert b"Email Address" in response.data
     assert b"Password" in response.data
@@ -41,7 +41,7 @@ def test_login(test_client):
 def test_logout(test_client):
     response = test_client.get('/logout', follow_redirects=True)
 
-    assert b"KOKO Networks" in response.data
+    assert b"Currency Exchange" in response.data
     assert b"Login" in response.data
     assert b"Email Address" in response.data
     assert b"Password" in response.data

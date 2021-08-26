@@ -1,0 +1,28 @@
+{% extends "base.html" %} {% block title %}Profile{% endblock %} {% block content
+    %}
+    
+    <div class="page-content page-container" id="profile_content">
+        <div class="card m-auto w-50">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card-block p-4">
+                        <h6 class="fw-600">Withdraw from Wallet</h6>
+                        <hr class="mt-1 mb-4">
+                        <div class="form-group">
+                            <label for="amount">Balance: {{wallet.currency}} {{wallet.current_balance}}</label>
+                        </div>
+                        <form method="POST">
+                            <div class="form-group">
+                                <label for="amount">Amount</label>
+                                <input type="number" class="form-control" id="amount" name="amount"
+                                    placeholder="Enter amount" />
+                            </div>
+                            <button type="submit" class="btn btn-primary mt-2 width-100">Withdraw</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    {% endblock %}

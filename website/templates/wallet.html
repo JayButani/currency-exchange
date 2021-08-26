@@ -1,5 +1,40 @@
-{% extends "base.html" %} {% block title %}Wallet{% endblock %} {% block content
-    %}
-    <h1 align="center">Everything Goes here</h1>
-    {% endblock %}
-    
+{% extends "base.html" %} {% block title %}Profile{% endblock %} {% block content
+%}
+
+<div class="page-content page-container" id="profile_content">
+    <div class="card">
+        <div class="row ml-0 mr-0">
+            <div class="col-sm-4 bg-c-lite-green left-sidebox-radius pt-4 pb-4">
+                <div class="card-block p-4 text-center text-white">
+                    <h5>Balance</h5>
+                    <h3 class="fw-600 mb-3">{{wallet.currency}} {{wallet.current_balance}} </h3>
+                    <a href="wallet/add" class="btn btn-outline-light width-100 m-1">Add</a>
+                    <a href="wallet/withdraw" class="btn btn-outline-light width-100 m-1">Withdraw</a>
+                    <a href="wallet/transfer" class="btn btn-outline-light width-100 m-1">Transfer</a>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="card-block p-4">
+                    <h6 class="fw-600">Transactions</h6>
+                    <hr class="mt-1 mb-4">
+                    <div class="txn-wrapper">
+                        {% if transactions.count() < 1: %}
+                            <p>You have not done any transactions yet!</p>
+                        {% endif %}
+                        {% for txn in transactions %}
+                        <div class="transaction {{txn.tag}}">
+                            <p class="d-inline m-0">{{txn.description}} <span class="txn-id">({{txn.txn_id}})</span></p>
+                            <p class="d-inline m-0 float-right">{{txn.original_currency}} {{txn.original_amount}}</p>
+                            <p class="txn-time m-0">
+                                {{txn.datetime.strftime("%d %b,%y %I:%M:%S %p")}}
+                            </p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
