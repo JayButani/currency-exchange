@@ -1,0 +1,31 @@
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_DB: currency_converter
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+  
+  currencyconverter:
+    image: currencyconverter
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    environment:
+      APPLICATION_DB: currency_converter
+      POSTGRES_USER: postgres
+      POSTGRES_HOSTNAME: db
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_PORT: 5432
+    command: gunicorn --bind  0.0.0.0:5000 main:app
+    volumes:
+      - ${PWD}:/opt/code
+    ports:
+      - 5000:5000
+
+volumes:
+  pgdata:

@@ -1,15 +1,12 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from os import path
 from flask_login import LoginManager
 from flask_migrate import Migrate
 
 db = SQLAlchemy()
 def create_app():
     app = Flask(__name__)
-    app.config['SECRET_KEY'] = '3FVpR2VRHl-8LVggkfDuQ'
-    app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:postgres@localhost:5432/currency_converter"
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.config.from_object('config.DevelopmentConfig')
 
     db.init_app(app)
 
