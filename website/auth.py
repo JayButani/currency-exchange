@@ -37,10 +37,10 @@ def logout():
 @auth.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():
     if request.method == 'POST':
-        email = request.form.get('email')
-        name = request.form.get('name')
-        password1 = request.form.get('password1')
-        password2 = request.form.get('password2')
+        email = request.form.get('email') or ''
+        name = request.form.get('name') or ''
+        password1 = request.form.get('password1') or ''
+        password2 = request.form.get('password2') or ''
 
         user = User.query.filter_by(email=email).first()
         if user:

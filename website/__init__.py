@@ -4,9 +4,9 @@ from flask_login import LoginManager
 from flask_migrate import Migrate
 
 db = SQLAlchemy()
-def create_app():
+def create_app(enviroment = 'Development'):
     app = Flask(__name__)
-    app.config.from_object('config.DevelopmentConfig')
+    app.config.from_object(f'config.{enviroment}Config')
 
     db.init_app(app)
 
