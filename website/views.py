@@ -129,12 +129,15 @@ def wallet_transfer():
             return redirect(url_for('views.wallet_transfer'))
 
         receiver_user = User.query.filter_by(id = receiver_id).first()
-        receiver_wallet = Wallet.query.filter_by(user_id=receiver_id).first()
         # sender entry
         transaction = create_txn(wallet=sender_wallet, type='DR', amount=amount, currency=sender_wallet.currency, tag='PAID_TO', user=receiver_user)
         update_wallet(sender_wallet, -abs(float((transaction.converted_amount or transaction.original_amount))), sender_wallet.currency)
 
         # receiver entry
+        receiver_wallet = Wallet.query.filter_by(user_id=receiver_id).first()
+        if not receiver_wallet:
+            receiver_wallet = create_wallet(receiver_user)
+
         sender_user = User.query.filter_by(id = current_user.id).first()
         transaction = create_txn(wallet=receiver_wallet, type='CR', amount=amount, currency=sender_wallet.currency, tag='RECEIVED_FROM', user=sender_user)
         update_wallet(receiver_wallet, (transaction.converted_amount or transaction.original_amount), receiver_wallet.currency)
@@ -145,8 +148,8 @@ def wallet_transfer():
         all_users = User.query.filter(User.id != current_user.id)
         return render_template("wallet_transfer.html", user=current_user, wallet=sender_wallet, all_users=all_users)
 
-def create_wallet(user, base_currency):
-    new_wallet = Wallet(user_id= user.id, currency= base_currency, current_balance=0)
+def create_wallet(user, base_currency='INR'):
+    new_wallet = Wallet(user_id= user.id, currency=base_currency, current_balance=0)
     db.session.add(new_wallet)
     db.session.commit()
     return new_wallet
