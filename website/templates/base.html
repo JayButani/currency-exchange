@@ -34,7 +34,7 @@
             {% if user.profile_image_url: %}
               <img id="header_user_image" src="{{user.profile_image_url}}" width="30" height="30" class="rounded-circle mr-1">
             {% else %}
-              <img id="header_user_image" src="static/user.png" width="30" height="30" class="rounded-circle mr-1">
+              <img id="header_user_image" src="/static/user.png" width="30" height="30" class="rounded-circle mr-1">
             {% endif %}
             {{user.name}}
           </a>

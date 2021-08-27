@@ -14,6 +14,7 @@ TXN_MESSAGES = dict(
     RECEIVED_FROM='Money received from'
 )
 views = Blueprint('views', __name__)
+MYDIR = os.path.dirname(__file__)
 
 @views.route('/profile', methods=['GET', 'POST'])
 @login_required
@@ -54,7 +55,7 @@ def upload_image():
 
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
-        file.save(os.path.join(current_app.root_path, 'static','uploads', filename))
+        file.save(os.path.join(MYDIR, 'static','uploads', filename))
         user = User.query.filter_by(id=current_user.id).first()
         profile_image_url = '/static/uploads/' + filename
         user.profile_image_url = profile_image_url
