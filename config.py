@@ -11,7 +11,7 @@ class Config(object):
     database = 'currency_converter'
     SECRET_KEY = '3FVpR2VRHl-8LVggkfDuQ'
     SQLALCHEMY_DATABASE_URI = (
-        "postgres://risevocfkzegwg:a231586eda5f1d6ed64fd6332baf1e0ecae0c0aadf17047f1b429dd3734538b2@ec2-18-209-153-180.compute-1.amazonaws.com:5432/dccnrnppmjka24"
+        "postgresql://risevocfkzegwg:a231586eda5f1d6ed64fd6332baf1e0ecae0c0aadf17047f1b429dd3734538b2@ec2-18-209-153-180.compute-1.amazonaws.com:5432/dccnrnppmjka24"
     )
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
