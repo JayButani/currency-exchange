@@ -1,5 +1,5 @@
 window.setTimeout(function () {
-  $(".alert").fadeTo(500, 0)
+  $(".alert").remove()
 }, 4000);
 
 $('#profile_image').change(function () {

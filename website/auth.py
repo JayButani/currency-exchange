@@ -13,9 +13,6 @@ def home():
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
-    if current_user:
-        return redirect("/wallet")
-
     if request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('password')
@@ -43,9 +40,6 @@ def logout():
 
 @auth.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():
-    if current_user:
-        return redirect("/wallet")
-
     if request.method == 'POST':
         email = request.form.get('email') or ''
         name = request.form.get('name') or ''

@@ -48,6 +48,7 @@ class Transaction(db.Model):
     tag = db.Column(db.String(50))
     datetime = db.Column(db.DateTime, nullable=False)
     status = db.Column(db.String(50), nullable=False)
+    exchange_rate = db.Column(db.Float)
 
     @validates('status', 'type', 'tag')
     def convert_upper(self, key, value):

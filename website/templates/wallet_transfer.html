@@ -10,6 +10,9 @@
                         <hr class="mt-1 mb-4">
                         <form method="POST">
                             <div class="form-group">
+                                <label for="amount">Balance: {{wallet.currency}} {{wallet.current_balance}}</label>
+                            </div>
+                            <div class="form-group">
                                 <label for="receiver">Select User</label>
                                 <select name="receiver" class="custom-select" required>
                                     <option>Please select an option</option>
@@ -24,7 +27,7 @@
                                 <input type="number" class="form-control" id="amount" name="amount"
                                     placeholder="Enter amount" />
                             </div>
-                            <button type="submit" class="btn btn-primary mt-2 width-100">Add</button>
+                            <button type="submit" class="btn btn-primary mt-2 width-100">Transfer</button>
                         </form>
                     </div>
                 </div>

@@ -25,9 +25,13 @@
                         <div class="transaction {{txn.tag}}">
                             <p class="d-inline m-0">{{txn.description}} <span class="txn-id">({{txn.txn_id}})</span></p>
                             <p class="d-inline m-0 float-right">{{txn.original_currency}} {{txn.original_amount}}</p>
-                            <p class="txn-time m-0">
+                            <br>
+                            <p class="d-inline txn-time m-0">
                                 {{txn.datetime.strftime("%d %b,%y %I:%M:%S %p")}}
                             </p>
+                            {% if txn.converted_amount: %}
+                                <p class="d-inline m-0 txn-time mt-1 float-right"> Converted to {{txn.converted_currency}} {{txn.converted_amount}}</p>
+                            {% endif %}
                         </div>
                         {% endfor %}
                     </div>
