@@ -7,7 +7,6 @@ def test_new_user():
     THEN check the email, password, and name fields are defined correctly
     """
     user = User(email='jay@gmail.com', password='04CTGNtM1d', name='Jay')
-    print(user)
     assert user.email == 'jay@gmail.com'
     assert user.password != 'Test123'
     assert user.name == 'Jay'

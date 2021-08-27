@@ -7,8 +7,15 @@ from flask_login import login_user, login_required, logout_user, current_user
 
 auth = Blueprint('auth', __name__)
 
+@auth.route('/', methods=['GET'])
+def home():
+    return redirect("/login")
+
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
+    if current_user:
+        return redirect("/wallet")
+
     if request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('password')
@@ -18,7 +25,7 @@ def login():
             if check_password_hash(user.password, password):
                 flash('Logged in successfully!', category='success')
                 login_user(user, remember=True)
-                return redirect(url_for('views.home'))
+                return redirect(url_for('views.wallet'))
             else:
                 flash('Incorrect password, try again.', category='error')
         else:
@@ -36,6 +43,9 @@ def logout():
 
 @auth.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():
+    if current_user:
+        return redirect("/wallet")
+
     if request.method == 'POST':
         email = request.form.get('email') or ''
         name = request.form.get('name') or ''

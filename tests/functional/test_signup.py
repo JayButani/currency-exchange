@@ -20,8 +20,6 @@ def test_signup_page_post_without_data(test_client):
     THEN check that a '200' status code is returned and Email does not exits
     """
     response = test_client.post('/sign-up')
-    print('-----------------------------------------')
-    print(response.data)
     assert response.status_code == 200
     assert b"Email must be greater than 3 characters." in response.data
 

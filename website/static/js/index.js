@@ -16,6 +16,7 @@ $('#profile_image').change(function () {
     success: function (response) {
       if (response.success) {
         $("#display_profile_image").attr('src', response.url);
+        $("#header_user_image").attr('src', response.url);
       }
     }
   });

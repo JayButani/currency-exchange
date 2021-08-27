@@ -23,17 +23,24 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ml-auto">
         {% if user.is_authenticated %}
-        <li class="nav-item {{'active' if request.path == '/' else ''}}">
-          <a class="nav-link fw-600" href="/">Home</span></a>
-        </li>
         <li class="nav-item {{'active' if request.path == '/profile' else ''}}">
           <a class="nav-link fw-600" href="/profile">Profile</a>
         </li>
-        <li class="nav-item {{'active' if request.path == '/wallet' else ''}}">
+        <li class="nav-item {{'active' if request.path in ['/wallet','/wallet/add','/wallet/withdraw','/wallet/transfer'] else ''}}">
           <a class="nav-link fw-600" href="/wallet">Wallet</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link fw-600" href="/logout">Logout</a>
+        <li class="nav-item dropdown ml-2">
+          <a class="nav-link dropdown-toggle fw-600 text-white" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {% if user.profile_image_url: %}
+              <img id="header_user_image" src="{{user.profile_image_url}}" width="30" height="30" class="rounded-circle mr-1">
+            {% else %}
+              <img id="header_user_image" src="static/user.png" width="30" height="30" class="rounded-circle mr-1">
+            {% endif %}
+            {{user.name}}
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="/logout">Logout</a>
+          </div>
         </li>
         {% else %}
         <li class="nav-item {{'active' if request.path == '/login' else ''}}">

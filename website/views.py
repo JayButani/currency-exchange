@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, jsonify, current_app
 from flask_login import login_required, current_user
 from . import db
-from .models import Transaction, User, Wallet
+from .models import Transaction, User, Wallet, Currency
 import os, datetime, string, random
 from werkzeug.utils import secure_filename
 from sqlalchemy import desc
@@ -14,12 +14,6 @@ TXN_MESSAGES = dict(
     RECEIVED_FROM='Money received from'
 )
 views = Blueprint('views', __name__)
-
-@views.route('/', methods=['GET', 'POST'])
-@login_required
-def home():
-    return render_template("home.html", user=current_user)
-
 
 @views.route('/profile', methods=['GET', 'POST'])
 @login_required
@@ -46,7 +40,7 @@ def profile():
             return redirect(url_for('views.profile'))
 
     wallet = Wallet.query.filter_by(user_id= current_user.id).first()
-    return render_template("profile.html", user=current_user, wallet=wallet)
+    return render_template("profile.html", user=current_user, wallet=wallet, all_currencies=get_currencies())
 
 
 @views.route('/upload_image', methods=['POST'])
@@ -100,7 +94,7 @@ def wallet_add():
         flash('Your transaction is successful. Wallet Balance updated!', category='success')
         return redirect(url_for('views.wallet'))
     else:
-        return render_template("wallet_add.html", user=current_user, wallet=wallet)
+        return render_template("wallet_add.html", user=current_user, wallet=wallet, all_currencies=get_currencies())
 
 
 @views.route('/wallet/withdraw', methods=['GET', 'POST'])
@@ -123,7 +117,6 @@ def wallet_transfer():
     sender_wallet = Wallet.query.filter_by(user_id=current_user.id).first()
     if request.method == 'POST':
         receiver_id = request.form.get('receiver')
-        currency = request.form.get('currency')
         amount = request.form.get('amount')
         receiver_user = User.query.filter_by(id = receiver_id).first()
         receiver_wallet = Wallet.query.filter_by(user_id=receiver_id).first()
@@ -161,6 +154,9 @@ def generate_txn_id(n = 10):
     return ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(n))
 
 def create_txn(wallet, type, amount, currency, tag, user=None):
+    if not wallet.currency == currency:
+        pass
+
     transaction = Transaction(
         wallet_id = wallet.id,
         txn_id=generate_txn_id(),
@@ -181,3 +177,7 @@ def get_description(tag, sender_receiver):
         return f'{TXN_MESSAGES[tag.upper()]} {sender_receiver.name}'
     else:
         return TXN_MESSAGES[tag.upper()]
+
+def get_currencies():
+    all_currencies = Currency.query.all()
+    return [[x.code, x.name] for x in all_currencies]

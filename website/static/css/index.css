@@ -1,7 +1,9 @@
 body {
     background-color: #f9f9fa
 }
-
+.nav-item {
+    line-height: 1.8;
+}
 .fw-600 {
     font-weight: 600
 }
