@@ -3,6 +3,7 @@ from . import db
 from flask_login import UserMixin
 from sqlalchemy.orm import validates
 import datetime, string, random, requests
+import os
 
 TXN_MESSAGES = dict(
     ADD='Money added to Wallet',
@@ -20,7 +21,8 @@ class Helper():
         return "{:.2f}".format(float(amount))
 
     def convertMoney(from_currency, to_currency, amount):
-        url = f'https://openexchangerates.org/api/latest.json?app_id={"c45854a9d2ba49bf93fc9a482302b758"}&base={from_currency}&symbols={to_currency}'
+        api_key = os.environ.get('OPENEXCHANGE_APIKEY')
+        url = f'https://openexchangerates.org/api/latest.json?app_id={api_key}&base={from_currency}&symbols={to_currency}'
         res = requests.get(url)
         resJson = res.json()
         exchange_rate = resJson['rates'][to_currency]

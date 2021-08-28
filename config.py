@@ -9,9 +9,9 @@ class Config(object):
     hostname = "localhost"
     port = 5432
     database = 'currency_converter'
-    SECRET_KEY = '3FVpR2VRHl-8LVggkfDuQ'
+    SECRET_KEY = os.environ.get('SECRET_KEY')
     SQLALCHEMY_DATABASE_URI = (
-        "postgresql://risevocfkzegwg:a231586eda5f1d6ed64fd6332baf1e0ecae0c0aadf17047f1b429dd3734538b2@ec2-18-209-153-180.compute-1.amazonaws.com:5432/dccnrnppmjka24"
+        os.environ.get('DATABASE_URL')
     )
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     is_prod = os.environ.get('IS_HEROKU', None)
