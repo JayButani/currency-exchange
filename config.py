@@ -11,7 +11,7 @@ class Config(object):
     database = 'currency_converter'
     SECRET_KEY = os.environ.get('SECRET_KEY')
     SQLALCHEMY_DATABASE_URI = (
-        os.environ.get('DATABASE_URL')
+        os.environ.get('SQLALCHEMY_DATABASE_URL')
     )
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     is_prod = os.environ.get('IS_HEROKU', None)
