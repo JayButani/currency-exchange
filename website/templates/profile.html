@@ -7,6 +7,7 @@
             <div class="col-sm-4 bg-c-lite-green left-sidebox-radius pt-4 pb-4">
                 <div class="card-block p-4 text-center text-white">
                     <div class="mb-4 position-relative">
+                        <div id="uploading_status">Image is uploading...</div>
                         {% if current_user.profile_image_url: %}
                         <img src="{{current_user.profile_image_url}}" id="display_profile_image" class="profile-img-radius"
                             alt="User-Profile-Image">

@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, jsonify, current_app
 from flask_login import login_required, current_user
 from . import db
-from .models import User, Wallet, Currency
+from .models import User, Wallet, Currency, Helper
 import os
 from werkzeug.utils import secure_filename
 
