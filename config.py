@@ -14,9 +14,6 @@ class Config(object):
         os.environ.get('SQLALCHEMY_DATABASE_URL')
     )
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    is_prod = os.environ.get('IS_HEROKU', None)
-    print('---------------------------------')
-    print(is_prod)
 class ProductionConfig(Config):
     """Production configuration"""
 

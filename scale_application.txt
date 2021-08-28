@@ -1,8 +1,0 @@
-To Scale our Flask Application we can do multiple things
-
-1 -	microservice
-2 -	queue for async/heavy task
-3 -	add caching mechanism in application
-4 -	load-balancer/auto scale and you should be able to scale horizontally 
-5 -	reverse proxy from nginx
-6 -	multiple pods with docker
