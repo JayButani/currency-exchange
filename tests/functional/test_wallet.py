@@ -58,6 +58,6 @@ def test_wallet_transfer_page(test_client):
 def test_wallet_transfer_page_post(test_client):
     cu = login(test_client, 'jay@gmail.com', 'asdfasdf')
     response = test_client.post('/wallet/transfer', headers={"Authorization":  _basic_auth_str('jay@gmail.com','asdfasdf')},
-        data = dict(receiver=8, currency='INR', amount = '100'), follow_redirects=True
+        data = dict(receiver=11, currency='INR', amount = '100'), follow_redirects=True
     )
     assert b"Your money transferred successfully!" in response.data
