@@ -24,7 +24,7 @@ def profile():
             if not wallet:
                 wallet = Wallet.create(user, base_currency)
             else:
-                wallet.update(base_currency=base_currency )
+                Wallet.update(wallet, new_currency=base_currency )
 
             user.name = name
             db.session.commit()

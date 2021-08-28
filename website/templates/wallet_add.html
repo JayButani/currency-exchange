@@ -13,7 +13,7 @@
                             <label for="currency">Currency</label>
                             <select class="custom-select" value="{{wallet.currency}}" id="currency" 
                             name="currency" required>
-                                <option>Please select an option</option>
+                                <option value="">Please select an option</option>
                                 {% for currency in all_currencies %}
                                 <option value="{{currency[0]}}" {% if currency[0]==wallet.currency %} selected{% endif %}>{{currency[0]}} ({{currency[1]}})</option>
                                 {% endfor %}

@@ -64,14 +64,19 @@ class Wallet(db.Model):
         db.session.commit()
         return new_wallet
 
-    @classmethod
-    def update(self, amount=None, base_currency=None):
+    @staticmethod
+    def update(wallet, amount=None, new_currency=None):
         if amount:
-            self.current_balance = self.current_balance + float(amount)
-            self.current_balance = Helper.get_float_string(self.current_balance)
+            current_balance = wallet.current_balance + float(amount)
+            wallet.current_balance = Helper.get_float_string(current_balance)
 
-        if not self.currency == base_currency:
-            self.currency = base_currency
+        if not wallet.currency == new_currency:
+            if wallet.current_balance > 0:
+                convertedObj = Helper.convertMoney(wallet.currency, new_currency, wallet.current_balance)
+                wallet.current_balance = convertedObj['converted_amount']
+
+            wallet.currency = new_currency
+
         db.session.commit()
 
 class Transaction(db.Model):

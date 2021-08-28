@@ -26,8 +26,18 @@ def wallet_add():
         amount = request.form.get('amount')
         currency = request.form.get('currency')
         
+        if len(currency) < 1:
+            flash('Please Select currency.', category='error')
+            return render_template("wallet_add.html", user=current_user, wallet=wallet, all_currencies=Currency.get_currencies())
+        elif len(amount) < 1:
+            flash('Please enter amount to add in wallet!', category='error')
+            return render_template("wallet_add.html", user=current_user, wallet=wallet, all_currencies=Currency.get_currencies())
+        elif float(amount) < 1:
+            flash('Please enter amount greate than 1 to add', category='error')
+            return render_template("wallet_add.html", user=current_user, wallet=wallet, all_currencies=Currency.get_currencies())
+
         transaction = Transaction.create(wallet=wallet, type='CR', amount=amount, currency=currency, tag='add')
-        wallet.update((transaction.converted_amount or transaction.original_amount), wallet.currency)
+        Wallet.update(wallet, (transaction.converted_amount or transaction.original_amount), wallet.currency)
         flash('Your transaction is successful. Wallet Balance updated!', category='success')
         return redirect(url_for('walletView.wallet'))
     else:
@@ -40,12 +50,19 @@ def wallet_withdraw():
     if request.method == 'POST':
         amount = request.form.get('amount')
 
+        if len(amount) < 1:
+            flash('Please enter amount to withdraw in wallet!', category='error')
+            return render_template("wallet_withdraw.html", user=current_user, wallet=wallet)
+        elif float(amount) < 1:
+            flash('Please enter amount greate than 1 to withdraw', category='error')
+            return render_template("wallet_withdraw.html", user=current_user, wallet=wallet)
+
         if wallet.current_balance < float(amount):
             flash('You can\'t withdraw more than your current balance.', category='error')
             return redirect(url_for('walletView.wallet_withdraw'))
 
         transaction = Transaction.create(wallet=wallet, type='DR', amount=amount, currency=wallet.currency, tag='withdraw')
-        wallet.update(-abs(float(amount)), wallet.currency)
+        Wallet.update(wallet, -abs(float(amount)), wallet.currency)
         flash('Your withdrawal is successful. Wallet Balance updated!', category='success')
         return redirect(url_for('walletView.wallet'))
     else:
@@ -55,9 +72,22 @@ def wallet_withdraw():
 @login_required
 def wallet_transfer():
     sender_wallet = Wallet.query.filter_by(user_id=current_user.id).first()
+    all_users = User.query.filter(User.id != current_user.id)
+
     if request.method == 'POST':
         receiver_id = request.form.get('receiver')
         amount = request.form.get('amount')
+        
+        if len(receiver_id) < 1:
+            flash('Please Select user to transfer.', category='error')
+            return render_template("wallet_transfer.html", user=current_user, wallet=sender_wallet, all_users=all_users)
+        elif len(amount) < 1:
+            flash('Please enter amount to transfer', category='error')
+            return render_template("wallet_transfer.html", user=current_user, wallet=sender_wallet, all_users=all_users)
+        elif float(amount) < 1:
+            flash('Please enter amount greate than 1 to transfer', category='error')
+            return render_template("wallet_transfer.html", user=current_user, wallet=sender_wallet, all_users=all_users)
+
 
         if sender_wallet.current_balance < float(amount):
             flash('You can\'t transfer more than your current balance.', category='error')
@@ -66,7 +96,7 @@ def wallet_transfer():
         receiver_user = User.query.filter_by(id = receiver_id).first()
         # sender entry
         transaction = Transaction.create(wallet=sender_wallet, type='DR', amount=amount, currency=sender_wallet.currency, tag='PAID_TO', user=receiver_user)
-        sender_wallet.update(-abs(float((transaction.converted_amount or transaction.original_amount))), sender_wallet.currency)
+        Wallet.update(sender_wallet, -abs(float((transaction.converted_amount or transaction.original_amount))), sender_wallet.currency)
 
         # receiver entry
         receiver_wallet = Wallet.query.filter_by(user_id=receiver_id).first()
@@ -75,10 +105,9 @@ def wallet_transfer():
 
         sender_user = User.query.filter_by(id = current_user.id).first()
         transaction = Transaction.create(wallet=receiver_wallet, type='CR', amount=amount, currency=sender_wallet.currency, tag='RECEIVED_FROM', user=sender_user)
-        receiver_wallet.update((transaction.converted_amount or transaction.original_amount), receiver_wallet.currency)
+        Wallet.update(receiver_wallet, (transaction.converted_amount or transaction.original_amount), receiver_wallet.currency)
 
         flash('Your money transferred successfully!', category='success')
         return redirect(url_for('walletView.wallet'))
     else:
-        all_users = User.query.filter(User.id != current_user.id)
         return render_template("wallet_transfer.html", user=current_user, wallet=sender_wallet, all_users=all_users)

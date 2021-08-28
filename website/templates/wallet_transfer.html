@@ -15,7 +15,7 @@
                             <div class="form-group">
                                 <label for="receiver">Select User</label>
                                 <select name="receiver" class="custom-select" required>
-                                    <option>Please select an option</option>
+                                    <option value="">Please select an option</option>
                                     {% for user in all_users %}
                                     <option value="{{user.id}}">{{user.name}}</option>
                                     {% endfor %}
