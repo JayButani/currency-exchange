@@ -12,9 +12,11 @@ def create_app(enviroment = 'Development'):
 
     from .views import views
     from .auth import auth
+    from .wallet import walletView
 
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
+    app.register_blueprint(walletView, url_prefix='/')
 
     from .models import User
 
