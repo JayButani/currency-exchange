@@ -94,6 +94,20 @@ body {
     font-size: 12px;
     opacity: 0.7;
 }
+@media (max-width: 375px) {
+    .converated-money {
+        display: block !important;
+        float: none !important;
+    }
+    #profile_content .transaction .description {
+        width: 65%;
+    }
+}
+@media (min-width: 376px) and (max-width: 450px) {
+    #profile_content .transaction .description {
+        width: 70%;
+    }
+}
 @media (max-width: 450px) {
 
     #login_card,
@@ -103,6 +117,9 @@ body {
 
     #profile_content .left-sidebox-radius {
         border-radius: 5px 5px 0 0;
+    }
+    #wallet_add .card, #wallet_withdraw .card, #wallet_transfer .card {
+        width: 90% !important;
     }
 }
 

@@ -14,7 +14,7 @@
                 </div>
             </div>
             <div class="col-sm-8">
-                <div class="card-block p-4">
+                <div class="card-block p-2 pt-4">
                     <h6 class="fw-600">Transactions</h6>
                     <hr class="mt-1 mb-4">
                     <div class="txn-wrapper">
@@ -23,14 +23,14 @@
                         {% endif %}
                         {% for txn in transactions %}
                         <div class="transaction {{txn.tag}}">
-                            <p class="d-inline m-0">{{txn.description}} <span class="txn-id">({{txn.txn_id}})</span></p>
-                            <p class="d-inline m-0 float-right">{{txn.original_currency}} {{txn.original_amount}}</p>
+                            <p class="d-inline-block description m-0">{{txn.description}} <span class="txn-id">({{txn.txn_id}})</span></p>
+                            <p class="d-inline-block m-0 float-right">{{txn.original_currency}} {{txn.original_amount}}</p>
                             <br>
-                            <p class="d-inline txn-time m-0">
+                            <p class="d-inline-block txn-time m-0">
                                 {{txn.datetime.strftime("%d %b,%y %I:%M:%S %p")}}
                             </p>
                             {% if txn.converted_amount: %}
-                                <p class="d-inline m-0 txn-time mt-1 float-right"> Converted to {{txn.converted_currency}} {{txn.converted_amount}}</p>
+                                <p class="d-inline-block m-0 converated-money txn-time mt-1 float-right"> Converted to {{txn.converted_currency}} {{txn.converted_amount}}</p>
                             {% endif %}
                         </div>
                         {% endfor %}
