@@ -14,8 +14,9 @@ class Config(object):
         "postgresql://risevocfkzegwg:a231586eda5f1d6ed64fd6332baf1e0ecae0c0aadf17047f1b429dd3734538b2@ec2-18-209-153-180.compute-1.amazonaws.com:5432/dccnrnppmjka24"
     )
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-
-
+    is_prod = os.environ.get('IS_HEROKU', None)
+    print('---------------------------------')
+    print(is_prod)
 class ProductionConfig(Config):
     """Production configuration"""
 
